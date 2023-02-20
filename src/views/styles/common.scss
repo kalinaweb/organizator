@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Roboto:wght@400;500&display=swap');
+* {
+    box-sizing:border-box;
+}
+
+:root {
+    /*Colors*/
+    --main-bg-color: #B3FC90;
+    --main-color: #3F72AF;
+
+    /*Lists*/
+    --list-bg-color: #ffffff;
+
+    /*Inputs*/
+    --input-plus-border: 1px solid #B1B1B1;
+    --input-plus-bg: #DBE2EF;
+    --input-plus-placeholder-text: #7B7B7B;
+
+    /*Texts*/
+    --dark-text: #000000;
+    --light-text: #ffffff;
+  }
+
+body {
+    font: 16px/1.4 'Roboto', sans-serif;
+    background: var(--main-bg-color);
+    min-height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;    
+    justify-content: center;
+}
+
+#root {
+    width: 100%;    
+}
+
+.mySwiper {
+	
+}
+
+.swiper-button-prev {
+    border: 30px solid transparent;
+    border-right: 18px solid var(--main-color);
+    width: 0;
+    left: -15px;
+    top: 95px;
+    height: 0;
+}
+.swiper-button-next {
+    border: 30px solid transparent;
+    border-left: 18px solid var(--main-color);
+    width: 0;
+    right: -15px;
+    top: 95px;
+    height: 0;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    display: none;
+}
+
+.copyTextList {
+    position: absolute;
+    left: -1000px;
+}

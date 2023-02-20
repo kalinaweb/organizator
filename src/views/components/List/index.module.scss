@@ -1,0 +1,175 @@
+
+.list {	
+  --duration: .7s;	
+
+	background: #fff;
+	/*max-width: 300px;*/
+	border-radius: 10px;
+	
+	padding-top: 50px;
+	margin-top: 50px;
+	position: relative;
+	overflow: hidden;
+
+	&__title {
+		font-size: 20px;
+		margin-bottom: 0.3em;
+		text-align: center;
+		background-color: var(--main-color);
+    color: var(--light-text);		
+	}
+
+	&__text {
+		text-align: center;
+	}
+
+	&__form, &__elements {
+		padding: 10px 15px;
+	}
+
+	&__edit {
+		height: 50px;
+		background-color: var(--main-color);
+		text-align: center;
+    padding: 8px 10px;
+
+		input {
+			width: 100%;
+			padding: 8px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+	}
+
+	.menu {
+
+		margin: 0;
+		display: flex;
+		/* Works well with 100% width  */		
+		font-size: 1.5em;		
+		position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--main-color);
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		padding: 5px 10px;
+
+	}
+
+	.menu__item {
+
+		all: unset;
+		flex-grow: 1;
+		z-index: 100;
+		display: flex;
+		cursor: pointer;
+		position: relative;
+		border-radius: 50%;
+		align-items: center;
+		will-change: transform;
+		justify-content: center;
+		padding: 10px;
+		transition: transform var(--timeOut, var(--duration));
+
+	}
+
+	.menu__item::before {
+
+		content: "";
+		z-index: -1;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		position: absolute;
+		transform: scale(0);
+		transition: background-color var(--duration), transform var(--duration);
+
+	}
+
+
+	.active {
+
+		/*transform: translate3d(0, -10px, 0);*/
+
+	}
+	.menu__item:hover::before {
+		transform: scale(1);
+		background-color: #fff;
+	}	
+
+	.active::before {
+
+		transform: scale(1);
+		background-color: #fff;
+
+	}
+
+	.icon {
+
+		width: 25px;
+		height: 25px;
+		stroke: white;
+		fill: transparent;
+		stroke-width: 1pt;
+		stroke-miterlimit: 10;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-dasharray: 400;
+		
+	}
+
+	.menu__item.active .icon, .menu__item:hover .icon {
+
+		animation: strok 1.5s reverse;
+		stroke: #000;
+	}
+
+	@keyframes strok {
+
+		100% {
+
+			stroke-dashoffset: 400;
+
+		}
+
+	}
+
+	.menu__border {
+
+		left: 0;
+		bottom: 99%;
+		width: 44%;
+    height: 23px;
+		position: absolute;
+		clip-path: url(#menu);
+		will-change: transform;
+		background-color: var(--main-color);
+		transition: transform var(--timeOut, var(--duration));
+
+	}
+	.svgcontainer {
+    width: 0;
+    height: 0;
+	}
+
+	
+}
+.copyTextList {
+	display: none;
+}
+
+@media (max-width: 576px) {
+	.list {
+		/*width: 90%;
+		padding: 15px 15px;*/
+
+		&__title {
+			font-size: 25px;
+		}
+	}
+}
