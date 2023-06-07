@@ -3,7 +3,8 @@
   --duration: .7s;	
 
 	background: #fff;
-	/*max-width: 300px;*/
+	max-width: 300px;
+	min-width: 300px;
 	border-radius: 10px;
 	
 	padding-top: 50px;
@@ -157,7 +158,9 @@
     height: 0;
 	}
 
-	
+	div[data-rbd-placeholder-context-id] {
+		display: none !important;
+	}
 }
 .copyTextList {
 	display: none;

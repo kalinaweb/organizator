@@ -164,7 +164,7 @@ export const List: React.FC<ListProps> = ({
 				
 					<input 
 						type="text" 
-						value={value}
+						defaultValue={value}
 						ref={editTitleInputRef}
 						onChange={(evt) => {
 							setValue(evt.target.value);
@@ -192,7 +192,7 @@ export const List: React.FC<ListProps> = ({
 					}}
 				/>
 			</div>
-			<Droppable droppableId={id} key={id}>
+			<Droppable droppableId={id.toString()}>
 				{(provided) => (
 					
 					<div className={styles.list__elements}
@@ -222,7 +222,7 @@ export const List: React.FC<ListProps> = ({
 						<form className="copyTextList">
 							<textarea
 								ref={textAreaRef}
-								value={title + '\n\n' + tasks.filter(task => task.listId == id).map((task, index) => {
+								defaultValue={title + '\n\n' + tasks.filter(task => task.listId == id).map((task, index) => {
 									if(index == 0 ) return task.title;
 									else return '\n'+task.title;
 								})}

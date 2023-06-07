@@ -1,4 +1,4 @@
-import create, {State, StateCreator} from 'zustand';
+import {create, State, StateCreator} from 'zustand';
 import { generateIdNumber } from '../helpers.ts';
 
 interface List {

@@ -35,7 +35,7 @@ export const InputTask: React.FC<InputTaskProps> = ({
 	}, [isEditMode]);
 	
 	return (
-		<Draggable draggableId={id} index={index} key={id}>
+		<Draggable draggableId={id.toString()} index={index}>
 			{(provided) => (
 				<div className={styles.inputTask}					
 					{...provided.draggableProps}

@@ -1,4 +1,4 @@
-import create, {State, StateCreator} from 'zustand';
+import {create, State, StateCreator} from 'zustand';
 
 import { generateId } from '../helpers.ts';
 
@@ -14,6 +14,9 @@ interface ToDoStore {
 	createTask: (listId: number, title: string) => void;
 	updateTask: (id: string, title: string) => void;
 	removeTask: (id: string) => void;
+	getTasksOneList: (listId: number) => void;
+	changeTasks: (indexOld: number, indexNew: number, listId: number) => void;
+	changeList: (id: string, listIdNew: number, indexNew: number) => void;
 }
 
 function isToDoStore(object: any): object is ToDoStore {
@@ -41,8 +44,6 @@ const getCurrentState = () => {
 	}
 	return [];
 }
-
-
 
 export const useToDoStore = create<ToDoStore>(localStorageUpdate((set, get) => ({
 	tasks: getCurrentState(),
@@ -72,6 +73,36 @@ export const useToDoStore = create<ToDoStore>(localStorageUpdate((set, get) => (
 		const { tasks } = get();
 		set({
 			tasks: tasks.filter((task) => task.id !== id )
+		});
+	},
+	getTasksOneList: (listId: number) => {
+		const { tasks } = get();
+		/*set({
+			tasks: tasks.filter((task) => task.listId !== listId )
+		});*/
+		return tasks.filter((task) => task.listId == listId );
+	},
+	changeTasks: (indexOld: number, indexNew: number, listId: number) => {
+		const { tasks } = get();
+		const  tasksFromList  = tasks.filter((task) => task.listId === listId );
+		const tasksWithoutCurrentList = tasks.filter((task) => task.listId !== listId );		
+		let currentValue = tasksFromList[indexOld];
+
+		tasksFromList.splice(indexOld, 1); 								//удаление со старого места
+		tasksFromList.splice(indexNew, 0, currentValue);	//вставка на новое место
+		
+		set({
+			tasks: tasksFromList.concat(tasksWithoutCurrentList),
+		});		
+	},
+	changeList: (id: string, listIdNew: number, indexNew: number) => {
+		const { tasks } = get();	
+		
+		set({
+			tasks: tasks.map((task) => ({
+				...task,
+				listId: task.id === id ? listIdNew : task.listId,
+			})),
 		});
 	},
 })));
