@@ -1,0 +1,12 @@
+.usermenu {
+	button, button:hover, button:active {
+		border: 0 !important;
+		background: none !important;
+		padding-top: 18px;
+	
+		&::after {
+			border-top: 0.3em solid #3F72AF;
+		}
+	}
+	
+}
