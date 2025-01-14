@@ -5,6 +5,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import styles from './index.module.scss';
 
 export const UserMenu: React.FC = () => {	
+	const handleLogOut = () => {
+		window.localStorage.setItem('jwt', '');
+		window.location.reload(true);
+	};
 	
 	return (
 		<Dropdown className={styles.usermenu}>
@@ -17,8 +21,8 @@ export const UserMenu: React.FC = () => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Sign out</Dropdown.Item>        
+        {/* <Dropdown.Item href="#/action-1">Profile</Dropdown.Item> */}
+        <Dropdown.Item  onClick={handleLogOut}>Sign out</Dropdown.Item>        
       </Dropdown.Menu>
     </Dropdown>
 

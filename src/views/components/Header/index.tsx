@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { useToDoStoreList } from "../../../data/stores/useToDoStoreList.ts";
 import { InputPlus } from "../InputPlus/index.tsx";
@@ -15,21 +17,26 @@ import { ModalRegistration } from "../ModalRegistration/index.tsx";
 
 export const Header: React.FC = () => {  
 
-	const [token, setToken] = useState(false)
+	
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [createList] = useToDoStoreList((state) => [state.createList]);
 
+  let token = '';
+
+  if (window.localStorage.getItem('jwt')) token = window.localStorage.getItem('jwt');
+ 
   const stylesInline = {
     width: "250px",
     textAlign: "center",
   };    
 
-  return (
+  return (    
     <>
       <div className={styles.header}>
         <div className={styles.header__logo}>
+        <FontAwesomeIcon icon={faBars} className="fa-fw" />
           <img src={logo} width="30" height="30" alt="" />
           <span>ОРГАНИЗАТОР</span>
         </div>
