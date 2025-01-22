@@ -5,13 +5,16 @@ interface List {
 	listId: number,
 	title: string,
 	order: number,
+	pageId: number,
 }
+
 
 interface ToDoList {
 	lists: List[];
 	createList: (listId: number, title: string) => void;
 	updateList: (id: number, title: string) => void;
 	removeList: (id: number) => void;
+	removeListOnePage: (pageid: number) => void;
 }
 
 function isToDoList(object: any): object is ToDoList {
@@ -30,7 +33,8 @@ const localStorageUpdate = <T extends State>(config: StateCreator<T>): StateCrea
 
 const getListCurrentState = () => {
 	try {
-		const currentState = (JSON.parse(window.localStorage.getItem('lists') || '[{"listId":0,"title":"Дела на сегодня","order":1668074397138},{"listId":1,"title":"Домашние дела","order":1668074438913},{"listId":2,"title":"Купить","order":1668074423928}]'));
+		const currentState = (JSON.parse(window.localStorage.getItem('lists') || '[{"listId":0,"title":"Дела на сегодня","order":1668074397138m, "pageId":0},{"listId":1,"title":"Домашние дела","order":1668074438913, "pageId":0},{"listId":2,"title":"Купить","order":1668074423928, "pageId":0}]'));
+				
 		return currentState;
 	}
 	catch(err) {
@@ -38,6 +42,9 @@ const getListCurrentState = () => {
 	}
 	return [];
 }
+
+const arrUrl = window.location.href.split('/');
+const pageForListNumber = parseInt(arrUrl[arrUrl.length - 1]);
 
 export const useToDoStoreList = create<ToDoList>(localStorageUpdate((set, get) => ({
 	lists: getListCurrentState(),	
@@ -47,6 +54,7 @@ export const useToDoStoreList = create<ToDoList>(localStorageUpdate((set, get) =
 			listId: generateIdNumber(),
 			title,
 			order: Date.now(), 
+			pageId: pageForListNumber,
 		}
 
 		set({
@@ -67,5 +75,15 @@ export const useToDoStoreList = create<ToDoList>(localStorageUpdate((set, get) =
 		set({
 			lists: lists.filter((list) => list.listId !== id )
 		});
+	},
+	removeListOnePage: (pageid: number) => {
+		const { lists } = get();
+		const arrDel = lists.filter((list) => list.pageId == pageid);
+		const result= arrDel.map((item) => item.listId);
+		
+		set({
+			lists: lists.filter((list) => list.pageId !== pageid )
+		});
+		return result;
 	},
 })));

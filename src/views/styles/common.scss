@@ -35,6 +35,11 @@ body {
     width: 100%;    
 }
 
+input:focus {
+    outline: none;
+    border: var(--input-plus-border);
+}
+
 .mySwiper {
 	
 }

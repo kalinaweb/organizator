@@ -22,6 +22,7 @@
 	&Title {
 		padding: 5px;
 		line-height: 1.2;
+		width: 170px;
 	}
 
 	&EditTitle {
@@ -30,6 +31,12 @@
 		padding: 5px;
 		background: none;
 		box-shadow: 0 4px 0 -3px var(--main-color);
+		width: 170px;
+	}
+
+	&EditTitle:focus {
+		outline: none;
+		border: none;
 	}
 
 	&Edit, &Remove, &Save {

@@ -15,6 +15,7 @@ interface ToDoStore {
 	updateTask: (id: string, title: string) => void;
 	removeTask: (id: string) => void;
 	getTasksOneList: (listId: number) => void;
+	removeTasksOneList: (listId: number) => void;
 	changeTasks: (indexOld: number, indexNew: number, listId: number) => void;
 	changeList: (id: string, listIdNew: number, indexNew: number) => void;
 }
@@ -81,6 +82,12 @@ export const useToDoStore = create<ToDoStore>(localStorageUpdate((set, get) => (
 			tasks: tasks.filter((task) => task.listId !== listId )
 		});*/
 		return tasks.filter((task) => task.listId == listId );
+	},
+	removeTasksOneList: (listId: number) => {
+		const { tasks } = get();
+		set({
+			tasks: tasks.filter((task) => task.listId !== listId )
+		});
 	},
 	changeTasks: (indexOld: number, indexNew: number, listId: number) => {
 		const { tasks } = get();

@@ -20,7 +20,7 @@ export const List: React.FC<ListProps> = ({
 	id,
 	title,
 	onEdited,
-	onRemoved
+	onRemoved,
 }) => {
 	const [
 		tasks,
@@ -28,12 +28,14 @@ export const List: React.FC<ListProps> = ({
 		createTask,
 		updateTask,
 		removeTask,
+		removeTasksOneList,
 	] = useToDoStore(state => [
 		state.tasks,
 		state.listId,
 		state.createTask,
 		state.updateTask,
 		state.removeTask,
+		state.removeTasksOneList
 	]);
 
 	const divStyle = {
@@ -147,7 +149,8 @@ export const List: React.FC<ListProps> = ({
 				
 				<button className={styles.menu__item} title="Удалить" onClick={() => {
 						if(window.confirm('Are you sure?')) {
-							onRemoved(id);							
+							onRemoved(id);
+							removeTasksOneList(id);					
 						}
 					}}>
 					<svg className={styles.icon} viewBox="0 0 24 24" >
@@ -185,6 +188,7 @@ export const List: React.FC<ListProps> = ({
 			<div className={styles.list__form}>
 				<InputPlus
 					id={id}
+					placeholder = "Добавить задачу"
 					onAdd={(title) => {
 						if (title) {
 							createTask(id, title);

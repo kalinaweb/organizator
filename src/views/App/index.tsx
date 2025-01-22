@@ -2,6 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useToDoStoreList } from '../../data/stores/useToDoStoreList.ts';
 import { useToDoStore } from '../../data/stores/useToDoStore.ts';
+import { useToDoStorePagesForLists } from "../../data/stores/useToDoStorePagesForLists.ts";
 import { Header } from '../components/Header/index.tsx';
 import { List } from '../components/List/index.tsx';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -12,6 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Pagination, Navigation } from "swiper";
+import { MenuPagesForLists } from '../components/MenuPagesForLists/index.tsx';
 
 export const App: React.FC = () => {
 	const [		
@@ -35,6 +37,12 @@ export const App: React.FC = () => {
 		state.changeList,
 	]);
 
+	const [		
+		pagesForLists
+	] = useToDoStorePagesForLists(state => [		
+		state.pagesForLists		
+	]);  
+
 	function onDragEnd(result) {
 		const { destination, source } = result;
 		if (!destination) { return }
@@ -48,14 +56,23 @@ export const App: React.FC = () => {
 			changeList(tasks[source.index].id, parseFloat(destination.droppableId), destination.index);
 		}
 	}	
+
+	const arrUrl = window.location.href.split('/');
+	let pageForListNumber = parseInt(arrUrl[arrUrl.length - 1]);	
+
+	if (typeof pageForListNumber != 'number' || isNaN(pageForListNumber) ) {
+		pageForListNumber = pagesForLists[0].pageId;
+	}
 	
 	return (
 		<>
-			<Header></Header>		
+			<Header></Header>	
+			<MenuPagesForLists></MenuPagesForLists>	
 			<div className={styles.main}>
+				
 				<DragDropContext onDragEnd={onDragEnd}>
 					
-						{lists.map((list, index) => {														
+						{lists.filter(list => list.pageId == pageForListNumber).map((list, index) => {
 								return <>
 									
 										<List
@@ -67,8 +84,7 @@ export const App: React.FC = () => {
 										></List>
 									
 								</>
-							})}						
-					
+							})}											
 					
 				</DragDropContext>
 			</div>				

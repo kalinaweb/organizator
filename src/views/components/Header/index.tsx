@@ -30,6 +30,7 @@ export const Header: React.FC = () => {
   const stylesInline = {
     width: "250px",
     textAlign: "center",
+    marginTop: "20px",
   };    
 
   return (    
@@ -41,9 +42,9 @@ export const Header: React.FC = () => {
           <span>ОРГАНИЗАТОР</span>
         </div>
         <div style={stylesInline}>
-          <h5>Добавить список</h5>
           <InputPlus
             id="df"
+            placeholder="Добавить список"
             onAdd={(value) => {
               if (value) {
                 createList(value);

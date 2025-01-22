@@ -3,10 +3,12 @@ import React, {useCallback, useState} from 'react';
 import styles from './index.module.scss';
 
 interface InputPlusProps {
+	placeholder: string,
 	onAdd: (title: string) => void; 
 }
 
 export const InputPlus: React.FC<InputPlusProps> = ({
+	placeholder,
 	onAdd,
 }) => {
 	const [inputValue, setInputValue] = useState('');
@@ -28,7 +30,7 @@ export const InputPlus: React.FC<InputPlusProps> = ({
 						addTask();
 					}
 				}}
-				placeholder="Type here..."
+				placeholder={placeholder}
 			/>
 			<button
 				onClick={() => {addTask()}}
